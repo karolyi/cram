@@ -156,13 +156,13 @@ def test(path, indent=2, shell='/bin/sh'):
     cmdline = '%s$ ' % indent
     conline = '%s> ' % indent
 
-    f = open(path, encoding="utf-8")
+    f = open(path)
     abspath = os.path.abspath(path)
     env = os.environ.copy()
     env['TESTDIR'] = os.path.dirname(abspath)
-    p = subprocess.Popen([shell, '-'], bufsize=-1, stdin=subprocess.PIPE,
+    p = subprocess.Popen(bufsize=-1, stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                         universal_newlines=True, env=env,
+                         universal_newlines=True, env=env, shell=True,
                          close_fds=os.name == 'posix')
     salt = 'CRAM%s' % time.time()
 
@@ -176,7 +176,7 @@ def test(path, indent=2, shell='/bin/sh'):
             prepos = pos
             pos = i
             p.stdin.write('echo "\n%s %s $?"\n' % (salt, i))
-            p.stdin.write(line[len(cmdline):].encode('utf-8'))
+            p.stdin.write(line[len(cmdline):])
             print('|||| CMDLINE:', line[len(cmdline):])
         elif line.startswith(conline):
             after.setdefault(prepos, []).append(line)
