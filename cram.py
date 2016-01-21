@@ -160,6 +160,7 @@ def test(path, indent=2, shell='/bin/sh'):
     abspath = os.path.abspath(path)
     env = os.environ.copy()
     env['TESTDIR'] = os.path.dirname(abspath)
+    print('||||||', env, shell)
     p = subprocess.Popen([shell, '-'], bufsize=-1, stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                          universal_newlines=True, env=env,
@@ -170,7 +171,6 @@ def test(path, indent=2, shell='/bin/sh'):
     refout, postout = [], []
     i = pos = prepos = -1
     for i, line in enumerate(f):
-        print ('|||||LINE:', line)
         refout.append(line)
         if line.startswith(cmdline):
             after.setdefault(pos, []).append(line)
