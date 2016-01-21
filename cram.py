@@ -140,7 +140,7 @@ def escape(s):
     """Like the string-escape codec, but doesn't escape quotes"""
     return escapesub(lambda m: escapemap[m.group(0)], s[:-1]) + ' (esc)\n'
 
-def test(path, indent=2, shell='/bin/sh'):
+def test(path, indent=2, shell='/bin/bash'):
     """Run test at path and return input, output, and diff.
 
     This returns a 3-tuple containing the following:
@@ -160,7 +160,6 @@ def test(path, indent=2, shell='/bin/sh'):
     abspath = os.path.abspath(path)
     env = os.environ.copy()
     env['TESTDIR'] = os.path.dirname(abspath)
-    print('||||||', env, shell)
     p = subprocess.Popen([shell, '-'], bufsize=-1, stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                          universal_newlines=True, env=env,
