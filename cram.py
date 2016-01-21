@@ -178,8 +178,8 @@ def test(path, indent=2, shell='/bin/sh'):
             prepos = pos
             pos = i
             p.stdin.write('echo "\n%s %s $?"\n' % (salt, i))
-            p.stdin.write(line[len(cmdline):])
-            print('|||| CMDLINE:', line[len(cmdline):])
+            p.stdin.write(line[len(cmdline):].encode('utf-8').decode('unicode-escape'))
+            print('|||| CMDLINE:', line[len(cmdline):].encode('utf-8').decode('unicode-escape'))
         elif line.startswith(conline):
             after.setdefault(prepos, []).append(line)
             p.stdin.write(line[len(conline):])
