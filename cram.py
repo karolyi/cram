@@ -161,7 +161,7 @@ def test(path, indent=2, shell='/bin/sh'):
     abspath = os.path.abspath(path)
     env = os.environ.copy()
     env['TESTDIR'] = os.path.dirname(abspath)
-    p = subprocess.Popen([shell, '-'], bufsize=-1, stdin=subprocess.PIPE,
+    p = subprocess.Popen([shell, '-l'], bufsize=-1, stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                          universal_newlines=True, env=env, shell=True,
                          close_fds=os.name == 'posix')
