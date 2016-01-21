@@ -156,7 +156,7 @@ def test(path, indent=2, shell='/bin/sh'):
     cmdline = '%s$ ' % indent
     conline = '%s> ' % indent
 
-    f = open(path)
+    f = open(path, encoding="utf-8")
     abspath = os.path.abspath(path)
     env = os.environ.copy()
     env['TESTDIR'] = os.path.dirname(abspath)
