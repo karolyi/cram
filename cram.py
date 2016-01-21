@@ -170,6 +170,7 @@ def test(path, indent=2, shell='/bin/sh'):
     refout, postout = [], []
     i = pos = prepos = -1
     for i, line in enumerate(f):
+        print ('|||||LINE:', line)
         refout.append(line)
         if line.startswith(cmdline):
             after.setdefault(pos, []).append(line)
