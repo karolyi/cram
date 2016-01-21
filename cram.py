@@ -11,6 +11,7 @@ import sys
 import shutil
 import time
 import tempfile
+import locale
 
 try:
     import configparser
@@ -169,6 +170,7 @@ def test(path, indent=2, shell='/bin/sh'):
     after = {}
     refout, postout = [], []
     i = pos = prepos = -1
+    print ('|||||||||LOCALE:', locale.getpreferredencoding())
     for i, line in enumerate(f):
         refout.append(line)
         if line.startswith(cmdline):
