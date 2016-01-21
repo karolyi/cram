@@ -140,7 +140,7 @@ def escape(s):
     """Like the string-escape codec, but doesn't escape quotes"""
     return escapesub(lambda m: escapemap[m.group(0)], s[:-1]) + ' (esc)\n'
 
-def test(path, indent=2, shell='/bin/bash'):
+def test(path, indent=2, shell='/bin/sh'):
     """Run test at path and return input, output, and diff.
 
     This returns a 3-tuple containing the following:
@@ -177,9 +177,11 @@ def test(path, indent=2, shell='/bin/bash'):
             pos = i
             p.stdin.write('echo "\n%s %s $?"\n' % (salt, i))
             p.stdin.write(line[len(cmdline):])
+            print('|||| CMDLINE:', line[len(cmdline):])
         elif line.startswith(conline):
             after.setdefault(prepos, []).append(line)
             p.stdin.write(line[len(conline):])
+            print('|||| CONLINE:', line[len(cmdline):])
         elif not line.startswith(indent):
             after.setdefault(pos, []).append(line)
     p.stdin.write('echo "\n%s %s $?"\n' % (salt, i + 1))
